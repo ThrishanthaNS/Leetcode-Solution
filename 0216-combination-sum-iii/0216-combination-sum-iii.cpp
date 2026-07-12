@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<vector<int>>ans;
-    void backtracking(int curr,int n,int sum,int k,vector<int>vec){
+    void backtracking(int curr,int n,int sum,int k,vector<int>&vec){
         int s=vec.size();
         if(sum==n && s==k) {
             ans.push_back(vec);
@@ -12,7 +12,6 @@ public:
         backtracking(curr+1,n,sum+curr,k,vec );
         vec.pop_back();
         backtracking(curr+1,n,sum,k,vec);
-
     }
     vector<vector<int>> combinationSum3(int k, int n) {
         vector<int>vec;
