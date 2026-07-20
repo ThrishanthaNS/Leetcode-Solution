@@ -1,24 +1,23 @@
 class Solution {
 public:
     vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {
-        int m=grid.size(),n=grid[0].size();
-        vector<vector<int>>ans(m,vector<int>(n));
-        k=k%(m*n);
-        if(k==0) return grid;
-        while(k--){
+        int m=grid.size(),n=grid[0].size(),total=m*n;
+        vector<int>ans;
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(j+1<n){
-                    ans[i][j+1]=grid[i][j];
-                }
-                else if(i+1<m){
-                    ans[i+1][0]=grid[i][j];
-                }
+                ans.push_back(grid[i][j]);
             }
         }
-        ans[0][0]=grid[m-1][n-1];
-        grid=ans;
-    }
-        return ans;
+        k=k%total;
+        k=total-k;
+        k=k%total;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                grid[i][j]=ans[k];
+                k=(k+1)%total;
+            }
+        }
+              
+        return grid;
     }
 };
