@@ -1,32 +1,33 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-       unordered_map<char,int>need,window;
-       for(char c:t){
-        need[c]++;
-       }
-       int l=0,r=0;
-       int minlen=INT_MAX;
-       int start=0;
-       int formed=0,required=need.size();
-       while(r<s.size()){
-            char c=s[r];
-            window[c]++;
-            if(need.count(c) && need[c]==window[c]){
-                formed++;
-            }
-            while(formed==required){
-                if(r-l+1<minlen){
-                    minlen=r-l+1;
-                    start=l;
+        unordered_map<char,int>need,current;
+        for(char c:t){
+            need[c]++;
+        }
+        unordered_set<char>str;
+        int right=0,left=0,start;
+        int minlen=INT_MAX,formed=0,required=need.size();
+        
+        while(right<s.size()){
+            char c=s[right];
+            current[c]++;
+            if(need.count(c) && current[c]==need[c]) formed++;
+            if(formed==required){
+                while(formed==required){
+                    if(right-left+1<minlen){
+                        minlen=right-left+1;
+                        start=left;
+                    }
+                    current[s[left]]--;
+                    if(need.count(s[left]) && current[s[left]]<need[s[left]]) {
+                        formed--;
+                    }
+                    left++;
                 }
-                window[s[l]]--;
-                if(need.count(s[l]) && window[s[l]]<need[s[l]]){
-                    formed--;
-                }
-                l++;
             }
-            r++;
+            right++;
+
         }
         return (minlen==INT_MAX)?"":s.substr(start,minlen);
 
