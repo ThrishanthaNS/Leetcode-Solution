@@ -1,22 +1,19 @@
 class Solution {
 public:
 vector<vector<int>>ans;
-    void dfs(vector<int>&nums,int i,vector<int>&vec){
-        if(i==nums.size()) {
+    void solve(int curr,vector<int>&nums,vector<int>&subset){
+        if(curr==nums.size()){
+            ans.push_back(subset);
             return;
         }
-        dfs(nums,i+1,vec);
-        vec.push_back(nums[i]);
-        ans.push_back(vec);
-        dfs(nums,i+1,vec);
-        vec.pop_back();
-
-       
+        solve(curr+1,nums,subset);
+        subset.push_back(nums[curr]);
+        solve(curr+1,nums,subset);
+        subset.pop_back();
     }
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<int>vec;
-        dfs(nums,0,vec);
-        ans.push_back({});
+        vector<int>subset;
+        solve(0,nums,subset);
         return ans;
     }
 };
