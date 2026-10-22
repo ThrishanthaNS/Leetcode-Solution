@@ -26,15 +26,13 @@ trie* dictionary;
     }
     
     bool search(string word) {
-        return helper(word,dictionary);
-        
+        return helper(word,0,dictionary);  
     }
-    bool helper(string word,trie* node){
-        if(word=="") return node->eow;
-        for(int i=0;i<word.size();i++){
+    bool helper(string word,int start,trie* node){
+        for(int i=start;i<word.size();i++){
             if(word[i]=='.'){
                 for(int j=0;j<26;j++){
-                    if(node->arr[j]!=nullptr && helper(word.substr(i+1),node->arr[j])){
+                    if(node->arr[j]!=nullptr && helper(word,i+1,node->arr[j])){
                         return true;
                     }
                 }
