@@ -1,8 +1,8 @@
 class Solution {
 public:
    void processqueue(queue<pair<int,int>>&q,vector<vector<char>>& board,vector<vector<int>>& vis){
-        int dr[]={1,0,0,-1};
-        int dc[]={0,1,-1,0};
+        int dr[]={0,0,-1,1};
+        int dc[]={1,-1,0,0};
         int m=board.size();
         int n=board[0].size();
         while(!q.empty()){
